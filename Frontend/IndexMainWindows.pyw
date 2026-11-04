@@ -1,11 +1,18 @@
 from tkinter import *
+from Ui.Components import Productos
 
 root=Tk()
 
-root.resizable(1,1)
+root.config(background="blue")
 
-Indexframe=Frame(root, width=1000, height=500)
-Indexframe.config(background="gray")
-Indexframe.grid(row=2, column=2)
+root.resizable(0,0)
+
+def addPageProductos(root: Tk):
+
+    ventanaProdcutos=Productos.VentanaProductos()
+
+    ventanaProdcutos.CreatePage(root)    
+
+addPageProductos(root)
 
 root.mainloop()
