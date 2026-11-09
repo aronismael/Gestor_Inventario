@@ -4,6 +4,15 @@ import customtkinter as ctk
 
 
 class VentanaProductos():
+
+    frameColumns1Products: ctk.CTkFrame
+    frameColumns2Products: ctk.CTkFrame
+    frameColumns3Products: ctk.CTkFrame
+    frameColumns4Products: ctk.CTkFrame
+    frameColumns5Products: ctk.CTkFrame
+    frameColumns6Products: ctk.CTkFrame    
+
+    frameAddProdcuto: ctk.CTkFrame
     
 
     def CreatePage(self, root:Tk):
@@ -17,13 +26,7 @@ class VentanaProductos():
             )
 
         self.ventanaFeutures(self.frameProductos)
-
-    frameColumns1Products: ctk.CTkFrame
-    frameColumns2Products: ctk.CTkFrame
-    frameColumns3Products: ctk.CTkFrame
-    frameColumns4Products: ctk.CTkFrame
-    frameColumns5Products: ctk.CTkFrame
-    frameColumns6Products: ctk.CTkFrame
+    
 
     def ventanaFeutures(self, frame: ctk.CTkFrame):        
 
@@ -33,7 +36,8 @@ class VentanaProductos():
 
 
         self.HeadPageInfoGenerica(frame)
-        self.FrameTableProucts(frame)
+        self.FrameMenu(frame)
+        self.FrameTableProucts(frame)        
 
 
 
@@ -59,7 +63,7 @@ class VentanaProductos():
         frameBoxInfoTotalProdcuto=ctk.CTkLabel(frameHeade, 
                                 width=150, 
                                 height=70,
-                                border_color="gray",
+                                border_color="red",
                                 border_width=1,
                                 fg_color="white",
                                 text="Total Productos",
@@ -74,7 +78,7 @@ class VentanaProductos():
         frameBoxInfoLowStock=ctk.CTkLabel(frameHeade, 
                                 width=150, 
                                 height=70,
-                                border_color="gray",
+                                border_color="red",
                                 border_width=1,
                                 text="Low Stock", 
                                 text_color="black",
@@ -89,7 +93,7 @@ class VentanaProductos():
         frameBoxInfoOutStock=ctk.CTkLabel(frameHeade, 
                                 width=150, 
                                 height=70,
-                                border_color="gray",
+                                border_color="red",
                                 border_width=1, 
                                 fg_color="white",
                                 text="Out of stock", 
@@ -104,7 +108,7 @@ class VentanaProductos():
         frameBoxInfoCategories=ctk.CTkLabel(frameHeade, 
                                 width=150, 
                                 height=70,
-                                border_color="gray",
+                                border_color="red",
                                 border_width=1,                                
                                 fg_color="white",
                                 text="Categories", 
@@ -114,25 +118,99 @@ class VentanaProductos():
         frameBoxInfoCategories.grid(row=1, column=4, padx=5, pady=5)
         frameBoxInfoCategories.pack_propagate(False)
 
+    def FrameMenu(self, frameProdcutos):
+
+        frameMenu=ctk.CTkFrame(frameProdcutos,
+                                width=717,
+                                height=30,                                
+                                corner_radius=20,  
+                                fg_color="white" 
+                               )
+        
+        ButtonAddProduct=ctk.CTkButton(frameMenu,
+                                 width=50,
+                                 height=30, 
+                                 border_color="gray",
+                                 border_width=1,
+                                 corner_radius=20,  
+                                 fg_color="white", 
+                                 text="+ Add product",
+                                 command=lambda: self.FrameAddProdcuto(frameProdcutos)                                            
+                                 )
+                
+        ButtonAddProduct.grid(row=1, column=1, padx=5)
+        
+        ButtonSearch=ctk.CTkButton(frameMenu,
+                                 width=50,
+                                 height=30, 
+                                 border_color="gray",
+                                 border_width=1,
+                                 corner_radius=20,  
+                                 fg_color="white", 
+                                 text="Search"                                                           
+                                 )
+        
+        
+        ButtonSearch.grid(row=1, column=2, padx=5)
+
+        frameMenu.grid_propagate(False)
+        frameMenu.pack(pady=5)
+
+
+    def FrameAddProdcuto(self, frameProdcutos: ctk.CTkFrame):
+
+        if self.frameAddProdcuto is not None:
+
+            self.frameAddProdcuto.destroy()
+        
+
+        self.frameAddProdcuto=ctk.CTkFrame(frameProdcutos,
+                                width=717,
+                                height=30,                                
+                                corner_radius=20,  
+                                fg_color="white" 
+                               )
+
+        label=ctk.CTkLabel(self.frameAddProdcuto,
+                            width=50,
+                            height=30, 
+                            border_color="gray",
+                            border_width=1,
+                            corner_radius=20,  
+                            fg_color="white", 
+                            text="Search"
+                           )
+        label.pack()
+        
+        self.frameAddProdcuto.grid_propagate(False)
+        self.frameAddProdcuto.pack(pady=5)
+
 
 
     def FrameTableProucts(self, frameProdcutos:ctk.CTkFrame):        
         
         frameTableProductos=ctk.CTkFrame(frameProdcutos,
-                                         width=1000,
+                                         width=717,
                                          height=70,
                                          border_color="gray",
                                          border_width=1,
                                          corner_radius=20,  
-                                         fg_color="white"                                                                                                                       
+                                         fg_color="white"                                                                                                                    
                                          )
+                                         
         
         frameTableProductos.pack_propagate(False)
         frameTableProductos.pack(padx=5)        
 
         self.ColumnsProducts(frameTableProductos)
         self.HeadTableProducts()
-        self.rowsProducts()
+
+        NumProducts=2
+
+        for product in range(0,3):
+            
+            if(product<=NumProducts):
+                self.rowsProducts(product+2)
 
 
     def ColumnsProducts(self, frameTableProductos:ctk.CTkFrame):
@@ -226,7 +304,7 @@ class VentanaProductos():
                                    text="PRODUCT", 
                                    fg_color="white",
                                    border_width=1, 
-                                   border_color="gray",
+                                   border_color="white",
                                    text_color="black", 
                                    corner_radius=10, 
                                    width=100
@@ -240,7 +318,7 @@ class VentanaProductos():
                                    text="SKU", 
                                    fg_color="white",
                                    border_width=1, 
-                                   border_color="gray",
+                                   border_color="white",
                                    text_color="black", 
                                    corner_radius=10, 
                                    width=100
@@ -255,7 +333,7 @@ class VentanaProductos():
                                    text="Category", 
                                    fg_color="white",
                                    border_width=1, 
-                                   border_color="gray",
+                                   border_color="white",
                                    text_color="black", 
                                    corner_radius=10, 
                                    width=100
@@ -270,7 +348,7 @@ class VentanaProductos():
                                    text="Stock", 
                                    fg_color="white",
                                    border_width=1, 
-                                   border_color="gray",
+                                   border_color="white",
                                    text_color="black", 
                                    corner_radius=10, 
                                    width=100
@@ -285,7 +363,7 @@ class VentanaProductos():
                                    text="Price", 
                                    fg_color="white",
                                    border_width=1, 
-                                   border_color="gray",
+                                   border_color="white",
                                    text_color="black", 
                                    corner_radius=10, 
                                    width=100
@@ -300,7 +378,7 @@ class VentanaProductos():
                                    text="Status", 
                                    fg_color="white",
                                    border_width=1, 
-                                   border_color="gray",
+                                   border_color="white",
                                    text_color="black", 
                                    corner_radius=10, 
                                    width=100
@@ -309,7 +387,7 @@ class VentanaProductos():
         LabelStatus.grid(row=1, column=6, padx=5, pady=5)
         LabelStatus.pack_propagate(False)
 
-    def rowsProducts(self):
+    def rowsProducts(self, numRow:int):
 
         #----------------------Prodcuts-----------------------------
 
@@ -323,7 +401,7 @@ class VentanaProductos():
                                    width=100
                                    )
         
-        LabelPRODUCTO.grid(row=2, column=1, padx=5, pady=5)
+        LabelPRODUCTO.grid(row=numRow, column=1, padx=5, pady=5)
         LabelPRODUCTO.pack_propagate(False)
 
         #----------------------SKU-----------------------------
@@ -337,7 +415,7 @@ class VentanaProductos():
                                    width=100
                                    )
         
-        LabelSKU.grid(row=2, column=2, padx=5, pady=5)
+        LabelSKU.grid(row=numRow, column=2, padx=5, pady=5)
         LabelSKU.pack_propagate(False)
 
         #----------------------Category-----------------------------
@@ -352,7 +430,7 @@ class VentanaProductos():
                                    width=100
                                    )
         
-        LabelCategory.grid(row=2, column=3, padx=5, pady=5)
+        LabelCategory.grid(row=numRow, column=3, padx=5, pady=5)
         LabelCategory.pack_propagate(False)
 
         #----------------------Stock-----------------------------
@@ -367,7 +445,7 @@ class VentanaProductos():
                                    width=100
                                    )
         
-        LabelStock.grid(row=2, column=4, padx=5, pady=5)
+        LabelStock.grid(row=numRow, column=4, padx=5, pady=5)
         LabelStock.pack_propagate(False)
 
         #----------------------Price-----------------------------
@@ -382,7 +460,7 @@ class VentanaProductos():
                                    width=100
                                    )
         
-        LabelPrice.grid(row=2, column=5, padx=5, pady=5)
+        LabelPrice.grid(row=numRow, column=5, padx=5, pady=5)
         LabelPrice.pack_propagate(False)
         
         #----------------------Status-----------------------------
@@ -397,7 +475,7 @@ class VentanaProductos():
                                    width=100
                                    )
         
-        LabelStatus.grid(row=2, column=6, padx=5, pady=5)
+        LabelStatus.grid(row=numRow, column=6, padx=5, pady=5)
         LabelStatus.pack_propagate(False)
 
 
